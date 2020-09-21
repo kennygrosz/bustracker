@@ -8,11 +8,21 @@
     <style>
         body { margin: 0; padding: 0;}
         #map { position: absolute ; top: 0; bottom: 0; width: 100%;}
+        .map-overlay{
+            position:absolute;
+            left:0;
+            padding:10px;
+        }
     </style>
 </head>
 <body>
     <div id="map"  text-align:"center"></div>
 
+    <div class="map-overlay top">
+        <button  style = "font-size: 2em;">
+            Curent tracking of Bus Route #1
+        </button>
+    </div>
 
 <script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoia2Vubnlncm9zejEiLCJhIjoiY2tmY2syaHdhMDIycDJ6cnFyZTBpOWFoMyJ9.fI3glWrrdzyAgF9Wss5psA'
@@ -30,9 +40,6 @@
         console.log(new Date());
         console.log(locations);
 
-        console.log(locations[0].attributes.label)
-
-
         // delete current markers
 
         var busMarkers = [];
@@ -40,7 +47,6 @@
         for (let i=0; i<locations.length; i++){
             printMarker(busMarkers,[locations[i].attributes.longitude, locations[i].attributes.latitude],locations[i].attributes.label)
         }
-        console.log(busMarkers)
         
         
 
@@ -63,7 +69,6 @@
     async function printMarker(busMarkers,LatLong, id){
         var popup = new mapboxgl.Popup()
             .setText("Bus ID: " + id.toString());
-        console.log("Bus Id: " + id.toString())
         var marker = new mapboxgl.Marker()
             .setLngLat(LatLong)
             .setPopup(popup)
